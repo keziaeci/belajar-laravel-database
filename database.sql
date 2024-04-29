@@ -10,6 +10,7 @@ create TABLE categories(
 ) engine innodb;
 
 -- DESC categories;
+SELECT * FROM categories;
 
 CREATE TABLE counters (
     id VARCHAR(100) NOT NULL PRIMARY KEY,
@@ -19,3 +20,16 @@ CREATE TABLE counters (
 insert into counters (id,counter) VALUES ('sample',0);
 
 SELECT * FROM counters;
+
+CREATE TABLE products (
+    id VARCHAR(100) NOT NULL PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    description TEXT NULL,
+    price INT NOT NULL,
+    category_id VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    constraint fk_category_id FOREIGN KEY (category_id) REFERENCES categories(id) 
+    -- ON DELETE CASCADE
+) engine innodb;
+
+SELECT * FROM products;
