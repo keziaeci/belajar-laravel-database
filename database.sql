@@ -33,3 +33,7 @@ CREATE TABLE products (
 ) engine innodb;
 
 SELECT * FROM products;
+
+DROP TABLE products;
+DROP TABLE categories;
+DROP TABLE counters;
