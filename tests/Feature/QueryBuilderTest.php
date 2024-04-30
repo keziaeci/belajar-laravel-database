@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use Database\Seeders\CategorySeeder;
+use Database\Seeders\CounterSeeder;
 use Tests\TestCase;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -22,6 +24,7 @@ class QueryBuilderTest extends TestCase
         parent::setUp();
         DB::delete("delete from products");
         DB::delete("delete from categories");
+        DB::delete("delete from counters");
     }
 
     function testInsert()
@@ -59,35 +62,36 @@ class QueryBuilderTest extends TestCase
 
     function testInsertCategories()
     {
-        DB::table('categories')->insert([
-            "id" => "RMA",
-            "name" => "Real Madrid",
-            "description" => "hala madrid y nada mas",
-            "created_at" => "2024-04-24 00:00:00",
-        ]);
-        DB::table('categories')->insert([
-            "id" => "BAR",
-            "name" => "Bayern Munchen",
-            "description" => "mia san mia mama mia lezatos",
-            "created_at" => "2024-09-24 00:00:00",
-        ]);
-        DB::table('categories')->insert([
-            "id" => "MUN",
-            "name" => "Manchester United",
-            "description" => "Glory Glory Man United",
-            "created_at" => "2024-12-24 21:00:00",
-        ]);
-        DB::table('categories')->insert([
-            "id" => "JUV",
-            "name" => "Juventus",
-            "description" => "Fino alla Fine",
-            "created_at" => "2024-11-24 10:00:00",
-        ]);
-        DB::table('categories')->insert([
-            "id" => "ACM",
-            "name" => "AC Milan",
-            "created_at" => "2024-11-24 10:00:00",
-        ]);
+        $this->seed(CategorySeeder::class);
+        // DB::table('categories')->insert([
+        //     "id" => "RMA",
+        //     "name" => "Real Madrid",
+        //     "description" => "hala madrid y nada mas",
+        //     "created_at" => "2024-04-24 00:00:00",
+        // ]);
+        // DB::table('categories')->insert([
+        //     "id" => "BAR",
+        //     "name" => "Bayern Munchen",
+        //     "description" => "mia san mia mama mia lezatos",
+        //     "created_at" => "2024-09-24 00:00:00",
+        // ]);
+        // DB::table('categories')->insert([
+        //     "id" => "MUN",
+        //     "name" => "Manchester United",
+        //     "description" => "Glory Glory Man United",
+        //     "created_at" => "2024-12-24 21:00:00",
+        // ]);
+        // DB::table('categories')->insert([
+        //     "id" => "JUV",
+        //     "name" => "Juventus",
+        //     "description" => "Fino alla Fine",
+        //     "created_at" => "2024-11-24 10:00:00",
+        // ]);
+        // DB::table('categories')->insert([
+        //     "id" => "ACM",
+        //     "name" => "AC Milan",
+        //     "created_at" => "2024-11-24 10:00:00",
+        // ]);
 
         assertTrue(true);
     }
@@ -186,6 +190,7 @@ class QueryBuilderTest extends TestCase
 
     function testQueryBuilderIncrement()
     {
+        $this->seed(CounterSeeder::class);
         DB::table('counters')->where('id', '=', 'sample')->increment('counter', 1);
 
         $coll = DB::table('counters')->where('id', '=', 'sample')->get();
